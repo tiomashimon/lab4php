@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\News;
+use App\Http\Requests\NewsRequest;
 
 class NewsController extends Controller
 {
@@ -22,7 +21,7 @@ class NewsController extends Controller
     }
 
     // Збереження нової новини
-    public function store(Request $request)
+    public function store(NewsRequest $request)
     {
         $news = new News;
         $news->title = $request->title;
@@ -30,6 +29,7 @@ class NewsController extends Controller
         $news->content = $request->content;
         $news->publication_date = $request->publication_date;
         $news->save();
+
         return redirect()->route('news.index');
     }
 
@@ -48,7 +48,7 @@ class NewsController extends Controller
     }
 
     // Оновлення новини
-    public function update(Request $request, $id)
+    public function update(NewsRequest $request, $id)
     {
         $news = News::find($id);
         $news->title = $request->title;
@@ -56,6 +56,7 @@ class NewsController extends Controller
         $news->content = $request->content;
         $news->publication_date = $request->publication_date;
         $news->save();
+
         return redirect()->route('news.index');
     }
 
